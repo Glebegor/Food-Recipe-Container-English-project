@@ -1,7 +1,7 @@
 CREATE TABLE recipe (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    description TEXT NOT NULL,
+    description TEXT NOT NULL
 );
 
 CREATE TABLE recipe_element (
