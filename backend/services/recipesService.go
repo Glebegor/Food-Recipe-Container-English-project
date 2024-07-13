@@ -18,6 +18,6 @@ func (rs *RecipesService) Post(input domain.Recipe) error {
 	return rs.Repo.Post(input)
 }
 
-func (rs *RecipesService) Delete() error {
+func (rs *RecipesService) Delete(id int) error {
 	return nil
 }

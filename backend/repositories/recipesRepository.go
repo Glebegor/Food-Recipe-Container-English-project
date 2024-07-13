@@ -21,7 +21,14 @@ func (r *RecipesRepository) Get() (error, []domain.Recipe) {
 }
 
 func (r *RecipesRepository) GetById(id int) (error, domain.Recipe) {
-	return nil, domain.Recipe{}
+	var data domain.Recipe
+
+	err := r.Db.Get(&data, "SELECT * FROM recipe WHERE id = $1", id)
+	if err != nil {
+		return err, domain.Recipe{}
+	}
+
+	return nil, data
 }
 
 func (r *RecipesRepository) Post(input domain.Recipe) error {
@@ -32,6 +39,6 @@ func (r *RecipesRepository) Post(input domain.Recipe) error {
 	return nil
 }
 
-func (r *RecipesRepository) Delete() error {
+func (r *RecipesRepository) Delete(id int) error {
 	return nil
 }

@@ -10,7 +10,7 @@ func (rs *RecipesElementService) Get() {
 
 }
 
-func (rs *RecipesElementService) GetById() {
+func (rs *RecipesElementService) GetById(id int) {
 
 }
 
@@ -18,6 +18,6 @@ func (rs *RecipesElementService) Post() {
 
 }
 
-func (rs *RecipesElementService) Delete() {
+func (rs *RecipesElementService) Delete(id int) {
 
 }
