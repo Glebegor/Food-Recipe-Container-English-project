@@ -3,8 +3,8 @@ package domain
 type RecipesElement struct {
 }
 
-type RecipesElementRepository struct {
+type IRecipesElementRepository interface {
 }
 
-type RecipesElementService struct {
+type IRecipesElementService interface {
 }
