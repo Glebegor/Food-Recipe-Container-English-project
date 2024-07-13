@@ -1,24 +1,18 @@
 package routers
 
+import (
+	"backend/api/handlers"
+	"backend/domain"
+	"github.com/gin-gonic/gin"
+	"github.com/jmoiron/sqlx"
+	"time"
+)
 
-func SetupRouter(gin *gin.Engine, db *sqlx.DB, conf Config) {
-    // User
-    recips := gin.Group("/recips")
-    {
-        recips.GET("/", )
-        recips.GET("/:id", )
-        recips.POST("/", )
-        recips.PUT("/:id", )
-        recips.DELETE("/:id", )
-        recips.GET("/:id/elementsIds", )
-    }
+func SetupRouter(gin *gin.Engine, db *sqlx.DB, conf domain.Config, timeout time.Duration) {
+	// User
 
-    recipsElements := gin.Group("/recipsElements")
-    {
-        recipsElements.GET("/", )
-        recipsElements.GET("/:id", )
-        recipsElements.POST("/", )
-        recipsElements.PUT("/:id", )
-        recipsElements.DELETE("/:id", )
-    }
+	recipesController := handlers.RecipeElementsController{}
+
+	recipesElementsController := handlers.RecipeElementsController{}
+
 }
