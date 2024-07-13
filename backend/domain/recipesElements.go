@@ -9,7 +9,15 @@ type RecipesElement struct {
 }
 
 type IRecipesElementRepository interface {
+	Get() (error, []RecipesElement)
+	GetById(id int) (error, RecipesElement)
+	Post(RecipesElement) error
+	Delete(id int) error
 }
 
 type IRecipesElementService interface {
+	Get() (error, []RecipesElement)
+	GetById(id int) (error, RecipesElement)
+	Post(RecipesElement) error
+	Delete(id int) error
 }
