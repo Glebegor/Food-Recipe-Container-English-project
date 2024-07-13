@@ -31,7 +31,7 @@ func (r *RecipesElementRepository) GetById(id int) (error, domain.RecipesElement
 }
 
 func (r *RecipesElementRepository) Post(input domain.RecipesElement) error {
-	_, err := r.Db.NamedExec("INSERT INTO recipe_element (recipe_id, element_id, quantity, name, unit) VALUES (:id, :recipe_id, :quantity, :name, :unit)", input)
+	_, err := r.Db.NamedExec("INSERT INTO recipe_element (recipe_id, quantity, name, unit) VALUES (:recipe_id, :quantity, :name, :unit)", input)
 	if err != nil {
 		return err
 	}
