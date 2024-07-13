@@ -13,7 +13,7 @@ import (
 func SetupRouter(gin *gin.Engine, db *sqlx.DB, conf domain.Config, timeout time.Duration) {
 	recipesRepository := repositories.RecipesRepository{Db: db}
 	recipesService := services.RecipesService{Repo: &recipesRepository}
-	recipesController := handlers.RecipeElementsController{Service: recipesService}
+	recipesController := handlers.RecipeController{Service: &recipesService}
 
 	recipesGroup := gin.Group("/recipes")
 	{
@@ -25,7 +25,7 @@ func SetupRouter(gin *gin.Engine, db *sqlx.DB, conf domain.Config, timeout time.
 
 	recipesElementsRepository := repositories.RecipesElementRepository{Db: db}
 	recipesElementsService := services.RecipesElementService{Repo: &recipesElementsRepository}
-	recipesElementsController := handlers.RecipeElementsController{Service: recipesElementsService}
+	recipesElementsController := handlers.RecipeElementsController{Service: &recipesElementsService}
 
 	recipesElementsGroup := gin.Group("/recipesElements")
 	{

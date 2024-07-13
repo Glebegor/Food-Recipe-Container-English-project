@@ -7,15 +7,15 @@ type RecipesService struct {
 }
 
 func (rs *RecipesService) Get() (error, []domain.Recipe) {
-	return nil, nil
+	return rs.Repo.Get()
 }
 
-func (rs *RecipesService) GetById() (error, domain.Recipe) {
-	return nil, nil
+func (rs *RecipesService) GetById(id int) (error, domain.Recipe) {
+	return rs.Repo.GetById(id)
 }
 
-func (rs *RecipesService) Post() error {
-	return nil
+func (rs *RecipesService) Post(input domain.Recipe) error {
+	return rs.Repo.Post(input)
 }
 
 func (rs *RecipesService) Delete() error {
