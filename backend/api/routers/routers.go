@@ -20,7 +20,6 @@ func SetupRouter(gin *gin.Engine, db *sqlx.DB, conf domain.Config, timeout time.
 		recipesGroup.GET("/", recipesController.Get)
 		recipesGroup.GET("/:id", recipesController.GetById)
 		recipesGroup.POST("/", recipesController.Post)
-		recipesGroup.PUT("/:id", recipesController.Put)
 		recipesGroup.DELETE("/:id", recipesController.Delete)
 	}
 
@@ -33,7 +32,6 @@ func SetupRouter(gin *gin.Engine, db *sqlx.DB, conf domain.Config, timeout time.
 		recipesElementsGroup.GET("/", recipesElementsController.Get)
 		recipesElementsGroup.GET("/:id", recipesElementsController.GetById)
 		recipesElementsGroup.POST("/", recipesElementsController.Post)
-		recipesElementsGroup.PUT("/:id", recipesElementsController.Put)
 		recipesElementsGroup.DELETE("/:id", recipesElementsController.Delete)
 	}
 }

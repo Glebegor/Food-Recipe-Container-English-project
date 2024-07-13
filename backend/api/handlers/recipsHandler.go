@@ -21,14 +21,6 @@ func (cr *RecipeController) Post(c *gin.Context) {
 
 }
 
-func (cr *RecipeController) Put(c *gin.Context) {
-
-}
-
 func (cr *RecipeController) Delete(c *gin.Context) {
-
-}
-
-func (cr *RecipeController) GetEl(c *gin.Context) {
 
 }
