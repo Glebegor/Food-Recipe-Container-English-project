@@ -19,7 +19,6 @@ func SetupRouter(gin *gin.Engine, db *sqlx.DB, conf domain.Config, timeout time.
 	{
 		recipesGroup.GET("/", recipesController.Get)
 		recipesGroup.GET("/:id", recipesController.GetById)
-		//recipesGroup.GET("/:id/elements", recipesController.GetEl)
 		recipesGroup.POST("/", recipesController.Post)
 		recipesGroup.PUT("/:id", recipesController.Put)
 		recipesGroup.DELETE("/:id", recipesController.Delete)
