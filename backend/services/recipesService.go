@@ -19,5 +19,5 @@ func (rs *RecipesService) Post(input domain.Recipe) error {
 }
 
 func (rs *RecipesService) Delete(id int) error {
-	return nil
+	return rs.Repo.Delete(id)
 }

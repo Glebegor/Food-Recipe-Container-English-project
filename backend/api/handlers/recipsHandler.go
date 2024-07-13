@@ -63,5 +63,20 @@ func (cr *RecipeController) Post(c *gin.Context) {
 }
 
 func (cr *RecipeController) Delete(c *gin.Context) {
+	id := c.Param("id")
 
+	id_int, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(400, map[string]interface{}{"error": err.Error()})
+		return
+	}
+
+	err = cr.Service.Delete(id_int)
+	if err != nil {
+		c.JSON(400, map[string]interface{}{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, map[string]interface{}{"Status": "OK"})
+	return
 }

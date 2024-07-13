@@ -40,5 +40,9 @@ func (r *RecipesRepository) Post(input domain.Recipe) error {
 }
 
 func (r *RecipesRepository) Delete(id int) error {
+	_, err := r.Db.Exec("DELETE FROM recipe WHERE id = $1", id)
+	if err != nil {
+		return err
+	}
 	return nil
 }
