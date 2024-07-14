@@ -12,6 +12,21 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+func CORS(gin *gin.Engine) {
+	// Cors
+	gin.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
+	})
+}
+
 func main() {
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 
@@ -43,6 +58,7 @@ func main() {
 	}
 
 	gin := gin.Default()
+	CORS(gin)
 	timeout := 5 * time.Second
 
 	routers.SetupRouter(gin, db, conf, timeout)
