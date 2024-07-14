@@ -1,8 +1,15 @@
+import RecipeItem from "./RecipeItem";
+import RecipeItemButton from "./RecipeItemButton";
 
 const RecipesPage = () => {
     return (
         <div>
-            <h1>Recipes</h1>
+            <div className={"container"}>
+                <RecipeItem />
+                <RecipeItem />
+                <RecipeItem />
+                <RecipeItemButton />
+            </div>
         </div>
     )
 }
