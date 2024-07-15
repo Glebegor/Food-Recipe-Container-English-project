@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"backend/domain"
+	"errors"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -31,10 +32,23 @@ func (r *RecipesElementRepository) GetById(id int) (error, domain.RecipesElement
 }
 
 func (r *RecipesElementRepository) Post(input domain.RecipesElement) error {
-	_, err := r.Db.NamedExec("INSERT INTO recipe_element (recipe_id, quantity, name, unit) VALUES (:recipe_id, :quantity, :name, :unit)", input)
+	// Check if the recipe_id exists in the recipes table
+	var count int
+	err := r.Db.Get(&count, "SELECT COUNT(*) FROM recipe WHERE id = $1", input.RecipeId)
 	if err != nil {
 		return err
 	}
+
+	if count == 0 {
+		return errors.New("recipe_id does not exist in recipes table")
+	}
+
+	// Insert into recipe_element table
+	_, err = r.Db.NamedExec("INSERT INTO recipe_element (recipe_id, quantity, name, unit) VALUES (:recipe_id, :quantity, :name, :unit)", input)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

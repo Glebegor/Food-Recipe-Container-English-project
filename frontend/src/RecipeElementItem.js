@@ -1,11 +1,15 @@
 
 
-const RecipeItem = ({ name, id }) => {
+const RecipeElementItem = ({ name, id , quantity}) => {
     return (
-        <a href={"http://localhost:3000/recipe/" + id} className={"recipeItem"}>
-            <div className={"recipeItemTitle"}>{name}</div>
+        <a className={"recipeElementItem"}>
+            <div className={"recipeElItemWrapper"}>
+                <span>{quantity}</span>
+                <div className={"recipeElementItemTitle"}>{name}</div>
+            </div>
+            <button className={"recipeElementItemButton"}>EDIT</button>
         </a>
     )
 }
 
-export default RecipeItem;
+export default RecipeElementItem;

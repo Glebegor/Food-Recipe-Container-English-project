@@ -1,9 +1,9 @@
 
 
-const RecipeItem = ({ recipe }) => {
+const RecipeItem = ({ name, id }) => {
     return (
-        <a href={""} className={"recipeItem"}>
-            <div className={"recipeItemTitle"}>Turkey</div>
+        <a href={"http://localhost:3000/recipe/" + id} className={"recipeItem"}>
+            <div className={"recipeItemTitle"}>{name}</div>
         </a>
     )
 }

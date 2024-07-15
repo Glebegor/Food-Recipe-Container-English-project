@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"backend/domain"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -42,7 +43,7 @@ func (cr *RecipeElementsController) Post(c *gin.Context) {
 		c.JSON(400, map[string]interface{}{"error": err.Error()})
 		return
 	}
-
+	fmt.Print(input.RecipeId)
 	err := cr.Service.Post(input)
 	if err != nil {
 		c.JSON(400, map[string]interface{}{"error": err.Error()})
