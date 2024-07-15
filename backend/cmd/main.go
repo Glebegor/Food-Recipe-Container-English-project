@@ -12,25 +12,24 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func CORS(gin *gin.Engine) {
-	// Cors
-	gin.Use(func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+func CORS() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*") // Allow all origins for testing
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
 			return
 		}
 		c.Next()
-	})
+	}
 }
 
 func main() {
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 
-	// config.go
 	conf := domain.Config{
 		DBName:     "postgres",
 		DBUser:     "postgres",
@@ -41,8 +40,6 @@ func main() {
 		SERVERPort: "8080",
 	}
 
-	// Connect to database
-	var db *sqlx.DB
 	db, err := sqlx.Connect("postgres", fmt.Sprintf("user=%s password=%s dbname=%s host=%s port=%s sslmode=disable", conf.DBUser, conf.DBPassword, conf.DBName, conf.DBHost, conf.DBPort))
 	if err != nil {
 		logrus.WithFields(logrus.Fields{
@@ -50,18 +47,16 @@ func main() {
 		}).Fatal("Failed to connect to database")
 	}
 
-	// Ping
 	if err = db.Ping(); err != nil {
 		logrus.WithFields(logrus.Fields{
 			"error": err,
 		}).Fatal("Failed to ping database")
 	}
 
-	gin := gin.Default()
-	CORS(gin)
+	router := gin.Default()
+	router.Use(CORS())
 	timeout := 5 * time.Second
 
-	routers.SetupRouter(gin, db, conf, timeout)
-	gin.Run(fmt.Sprintf("%s:%s", conf.SERVERHost, conf.SERVERPort))
-	return
+	routers.SetupRouter(router, db, conf, timeout)
+	router.Run(fmt.Sprintf("%s:%s", conf.SERVERHost, conf.SERVERPort))
 }
